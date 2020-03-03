@@ -3,6 +3,7 @@ import React, {
   ButtonHTMLAttributes,
   FunctionComponent,
   Ref,
+  ReactElement,
 } from 'react';
 import classNames from 'classnames';
 
@@ -31,6 +32,7 @@ export type EuiButtonIconColor =
 
 export interface EuiButtonIconProps extends CommonProps {
   iconType?: IconType;
+  icon?: ReactElement;
   color?: EuiButtonIconColor;
   'aria-label'?: string;
   'aria-labelledby'?: string;
@@ -75,6 +77,7 @@ export const EuiButtonIcon: FunctionComponent<Props> = ({
   className,
   iconType,
   iconSize = 'm',
+  icon,
   color = 'primary',
   isDisabled,
   href,
@@ -111,6 +114,10 @@ export const EuiButtonIcon: FunctionComponent<Props> = ({
         aria-hidden="true"
       />
     );
+  } else if (icon) {
+    buttonIcon = React.cloneElement(icon, {
+      className: classNames('euiButtonIcon__icon', icon.props.className),
+    });
   }
 
   // <a> elements don't respect the `disabled` attribute. So if we're disabled, we'll just pretend

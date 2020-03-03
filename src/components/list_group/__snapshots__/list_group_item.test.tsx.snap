@@ -301,9 +301,8 @@ exports[`EuiListGroupItem throws an warning if both iconType and icon are provid
   <span
     class="euiListGroupItem__text"
   >
-    <div
+    <span
       class="euiListGroupItem__icon"
-      data-euiicon-type="empty"
     />
     <span
       class="euiListGroupItem__label"

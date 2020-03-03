@@ -134,24 +134,24 @@ export const EuiListGroupItem: FunctionComponent<EuiListGroupItemProps> = ({
 
   let iconNode;
 
-  if (iconType) {
-    iconNode = <EuiIcon className="euiListGroupItem__icon" type={iconType} />;
-
-    if (icon) {
-      console.warn(
-        'Both `iconType` and `icon` were passed to EuiListGroupItem but only one can exist. The `iconType` was used.'
-      );
-    }
-  } else if (icon) {
+  if (icon) {
     iconNode = React.cloneElement(icon, {
       className: classNames('euiListGroupItem__icon', icon.props.className),
     });
+
+    if (iconType) {
+      console.warn(
+        'Both `iconType` and `icon` were passed to EuiListGroupItem but only one can exist. The `icon` property was used.'
+      );
+    }
+  } else if (iconType) {
+    iconNode = <EuiIcon className="euiListGroupItem__icon" type={iconType} />;
   }
 
   let extraActionNode;
 
   if (extraAction) {
-    const { iconType, alwaysShow, className, ...rest } = extraAction;
+    const { alwaysShow, className, ...rest } = extraAction;
 
     const extraActionClasses = classNames(
       'euiListGroupItem__extraAction',
@@ -164,7 +164,6 @@ export const EuiListGroupItem: FunctionComponent<EuiListGroupItemProps> = ({
     extraActionNode = (
       <EuiButtonIcon
         className={extraActionClasses}
-        iconType={iconType}
         {...rest}
         disabled={isDisabled}
       />

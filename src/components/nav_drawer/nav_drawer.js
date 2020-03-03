@@ -7,6 +7,10 @@ import { EuiNavDrawerGroup, ATTR_SELECTOR } from './nav_drawer_group';
 import { EuiOutsideClickDetector } from '../outside_click_detector';
 import { EuiI18n } from '../i18n';
 import { EuiFlexItem, EuiFlexGroup } from '../flex';
+import { icon as LockIcon } from '../icon/assets/lock';
+import { icon as LockOpenIcon } from '../icon/assets/lockOpen';
+import { icon as MenuLeftIcon } from '../icon/assets/menuLeft';
+import { icon as MenuRightIcon } from '../icon/assets/menuRight';
 import { throttle } from '../color_picker/utils';
 
 const MENU_ELEMENT_ID = 'navDrawerMenu';
@@ -288,7 +292,9 @@ export class EuiNavDrawer extends Component {
               <EuiListGroupItem
                 buttonRef={node => (this.expandButtonRef = node)}
                 label={this.state.isCollapsed ? sideNavExpand : sideNavCollapse}
-                iconType={this.state.isCollapsed ? 'menuRight' : 'menuLeft'}
+                icon={
+                  this.state.isCollapsed ? <MenuRightIcon /> : <MenuLeftIcon />
+                }
                 size="s"
                 className={
                   this.state.isCollapsed
@@ -300,8 +306,11 @@ export class EuiNavDrawer extends Component {
                   className: 'euiNavDrawer__expandButtonLockAction',
                   color: 'text',
                   onClick: this.sideNavLockClicked,
-                  iconType: this.state.isLocked ? 'lock' : 'lockOpen',
-                  iconSize: 's',
+                  icon: this.state.isLocked ? (
+                    <LockIcon className="euiIcon--small" />
+                  ) : (
+                    <LockOpenIcon className="euiIcon--small" />
+                  ),
                   'aria-label': sideNavLockAriaLabel,
                   title: this.state.isLocked
                     ? sideNavLockExpanded
